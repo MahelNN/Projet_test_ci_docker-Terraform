@@ -1,7 +1,7 @@
 provider "aws" {
-  region     = "us-east-1"
-  access_key = var.access_key
-  secret_key = var.secret_key
+  region     = "us-east-2"
+  access_key = AWS_ACCESS_KEY_ID
+  secret_key = AWS_SECRET_ACCESS_KEY
 }
 
 # 1. Create vpc
@@ -46,7 +46,7 @@ resource "aws_route_table" "prod-route-table" {
 resource "aws_subnet" "subnet-1" {
   vpc_id            = aws_vpc.prod-vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-2a"
 
   tags = {
     Name = "Prod-subnet"
@@ -134,10 +134,10 @@ resource "aws_eip" "one" {
 # 9. Create Ubuntu server and install/enable apache2
 
 resource "aws_instance" "web-server-instance" {
-  ami               = "ami-09d56f8956ab235b3"
+  ami               = "ami-0aeb7c931a5a61206"
   instance_type     = "t2.micro"
-  availability_zone = "us-east-1a"
-  key_name          = "access_key"
+  availability_zone = "us-east-2a"
+  key_name          = "access_key1"
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.web-server-nic.id

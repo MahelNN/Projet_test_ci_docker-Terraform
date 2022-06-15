@@ -9,9 +9,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Instanciate an AWS resouce
+        with:
+          username: ${{ secrets.AWS_USERNAME }} 
+          password: ${{ secrets.AWS_PASSWORD }}
+
         run: |
           terraform init
-          terraform apply -var="AWS_USERNAME=${{ secrets.AWS_USERNAME }}" -var="AWS_PASSWORD=${{ secrets.AWS_PASSWORD }}" --auto-approve
+          terraform apply -var="access_key=$username" -var="secret_key=$password" --auto-approve
 
       - name: Build docker image
         run: docker build -t first-server .

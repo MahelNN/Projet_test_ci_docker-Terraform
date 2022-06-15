@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Instanciate an AWS resouce
-        with:
+        env:
           username: ${{ secrets.AWS_USERNAME }} 
           password: ${{ secrets.AWS_PASSWORD }}
 

@@ -1,0 +1,26 @@
+name: CI_Terraform
+
+on: [push]
+
+jobs:
+  test_build_run_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Instanciate an AWS resouce
+        run: |
+          terraform init
+          terraform apply -auto-approve
+
+      - name: Build docker image
+        run: docker build -t first-server .
+      - name: run docker image
+        run: docker run first-server
+      - name: Build and Push docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: mahelnn/projettestcidockermain
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}

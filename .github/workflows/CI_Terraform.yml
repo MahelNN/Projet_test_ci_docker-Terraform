@@ -11,7 +11,7 @@ jobs:
       - name: Instanciate an AWS resouce
         run: |
           terraform init
-          terraform apply -auto-approve
+          terraform apply -var="AWS_USERNAME=${{ secrets.AWS_USERNAME }}" -var="AWS_PASSWORD=${{ secrets.AWS_PASSWORD }}" --auto-approve
 
       - name: Build docker image
         run: docker build -t first-server .

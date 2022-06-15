@@ -1,6 +1,9 @@
 name: CI
 
 on: [push]
+
+env:
+  AWS_DEFAULT_REGION: us-east-1
   
 jobs:
   test_build_run_push:
@@ -15,13 +18,13 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_USERNAME }}
       - name: run main.tf
         run: |
-          terraform init --auto-approve
+          terraform init 
           terraform apply --auto-approve
 
       - name: build docker image
-        run: docker build -t valid_password .
+        run: docker build -t first-server .
       - name: run docker image
-        run: docker run valid_password
+        run: docker run first-server
       - name: build and push docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:

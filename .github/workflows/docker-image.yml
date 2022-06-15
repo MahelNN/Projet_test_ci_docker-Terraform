@@ -19,7 +19,7 @@ jobs:
       - name: run main.tf
         run: |
           terraform init 
-          terraform apply --auto-approve
+          terraform apply -var="AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID"  -var="AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY"   --auto-approve
 
       - name: build docker image
         run: docker build -t first-server .
